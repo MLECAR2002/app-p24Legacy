@@ -16,39 +16,28 @@ export default {
     ],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.p24legacy.footballquiz",
-      config: {
-        usesNonExemptEncryption: false
-      }
+      bundleIdentifier: "com.footballquiz.app"
     },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
       },
-      package: "com.p24legacy.footballquiz",
+      package: "com.footballquiz.app",
       versionCode: 1
     },
     web: {
-      bundler: 'webpack',
-      output: 'static',
-      favicon: "./assets/favicon.png"
+      favicon: "./assets/favicon.png",
+      bundler: "metro"
     },
     plugins: [
       "expo-localization",
-      "expo-font",
-      "expo-av",
-      "expo-haptics"
+      "expo-font"
     ],
     extra: {
       eas: {
         projectId: "your-project-id"
       }
-    },
-    updates: {
-      enabled: true,
-      checkAutomatically: "ON_LOAD",
-      fallbackToCacheTimeout: 30000
     }
   }
-};
+}
