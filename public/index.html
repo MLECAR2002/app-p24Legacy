@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0066cc" />
+    <meta name="description" content="Quiz sur l'inclusion et la diversité dans le football aux JO de Paris 2024" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Quiz Football Paris 2024</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="install-prompt" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0066cc; color: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        <p>Installer l'application pour jouer hors ligne ?</p>
+        <button id="install-button" style="background: white; color: #0066cc; border: none; padding: 8px 16px; border-radius: 5px; margin: 5px;">Installer</button>
+        <button id="close-prompt" style="background: transparent; color: white; border: 1px solid white; padding: 8px 16px; border-radius: 5px; margin: 5px;">Plus tard</button>
+    </div>
+    <script>
+        let deferredPrompt;
+        const installPrompt = document.getElementById('install-prompt');
+        const installButton = document.getElementById('install-button');
+        const closePrompt = document.getElementById('close-prompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('Application installée');
+                }
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+
+        closePrompt.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
