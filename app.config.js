@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: "Football Quiz",
+    name: "Football Quiz App",
     slug: "football-quiz-app",
     version: "1.0.0",
     orientation: "portrait",
@@ -30,8 +30,9 @@ export default {
       versionCode: 1
     },
     web: {
-      favicon: "./assets/favicon.png",
-      bundler: 'metro'
+      bundler: 'webpack',
+      output: 'static',
+      favicon: "./assets/favicon.png"
     },
     plugins: [
       "expo-localization",
